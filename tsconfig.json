@@ -9,6 +9,14 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@core/*": ["./apps/canteen-app/src/app/core/*"],
+      "@domain/*": ["./apps/canteen-app/src/app/domain/*"],
+      "@shared/*": ["./apps/canteen-app/src/app/shared/*"],
+      "@widget/*": ["./apps/canteen-app/src/app/widget/*"],
+      "@assets/*": ["./apps/canteen-app/src/app/assets/*"]
+    },
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -19,10 +27,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

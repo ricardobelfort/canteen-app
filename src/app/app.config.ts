@@ -35,8 +35,6 @@ export const appConfig: ApplicationConfig = {
         preset: MyPreset,
         options: {
           prefix: 'my',
-          darkModeSelector: 'system',
-          cssLayer: false,
         },
       },
       ripple: true,
