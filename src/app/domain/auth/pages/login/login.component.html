@@ -1,1 +1,10 @@
-<p>login works!</p>
+<main class="main">
+  <div class="content">
+    <span class="title">PrimeNG Playground</span>
+    <div class="content-input">
+      <input type="text" pInputText [(ngModel)]="text">
+      <p-button label="Submit" (onClick)="onClick()" [disabled]="!text"></p-button>
+    </div>
+    <p-message severity="success" *ngIf="msg">{{msg}}</p-message>
+  </div>
+</main>
