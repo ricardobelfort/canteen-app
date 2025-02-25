@@ -4,6 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { errorInterceptor } from '@core/error/error.interceptor';
+import { loadingInterceptor } from '@core/loading/loading.interceptor';
 import { authInterceptor } from '@pages/public/auth/auth.interceptor';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
@@ -19,7 +20,10 @@ export function tokenGetter(): string | null {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptorsFromDi(), withInterceptors([authInterceptor, errorInterceptor])),
+    provideHttpClient(
+      withInterceptorsFromDi(),
+      withInterceptors([authInterceptor, errorInterceptor, loadingInterceptor])
+    ),
     provideRouter(routes, withComponentInputBinding()),
     importProvidersFrom(
       ToastModule,
