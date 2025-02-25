@@ -1,0 +1,8 @@
+<p>home works!</p>
+
+<pre class="text-sm font-light" *ngIf="user$ | async as user">
+    {{ user | json }}
+  </pre
+>
+
+<p-button label="Logout" (onClick)="logout()" icon="pi pi-sign-out" size="small" />

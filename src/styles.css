@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@use "primeicons/primeicons.css";
+@layer tailwind, primeng;
+
+@layer tailwind {
+  @import 'tailwindcss';
+}
+
+@theme {
+  --font-worksans: "Work Sans";
+  --bg-body: #F3F4F4;
+}
+
+html {
+  font-family: var(--font-worksans), sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-weight: normal;
+  color: #1d2327;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-body);
+}

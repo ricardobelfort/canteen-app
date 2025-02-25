@@ -1,0 +1,40 @@
+<div class="w-full bg-white p-5 flex justify-between shadow-xs">
+  <nav class="flex justify-center space-x-4">
+    <a class="font-medium rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"> Dashboard </a>
+  </nav>
+  <div class="flex items-center" (click)="menu.toggle($event)">
+    <img
+      class="h-10 w-10 rounded-full"
+      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      alt=""
+    />
+    <div class="ml-3 overflow-hidden">
+      <p class="text-sm font-medium text-gray-900">{{ user?.name }}</p>
+      <p class="truncate text-sm text-gray-500 dark:text-gray-400">{{ user?.email }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <p-menu #menu [model]="items" [popup]="true" class="flex justify-center" styleClass="w-full md:w-60 mt-4">
+    <ng-template #submenuheader let-item>
+      <span class="text-primary font-bold">{{ item.label }}</span>
+    </ng-template>
+    <ng-template #item let-item>
+      <a [routerLink]="item.route" class="p-menu-item-link" pRipple class="flex items-center p-menu-item-link">
+        <span [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+        <span
+          *ngIf="item.shortcut"
+          class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+          >{{ item.shortcut }}</span
+        >
+      </a>
+    </ng-template>
+  </p-menu>
+</div>
+
+<main class="w-full h-auto flex justify-center items-center">
+  <router-outlet />
+</main>
