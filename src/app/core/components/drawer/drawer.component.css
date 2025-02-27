@@ -1,0 +1,4 @@
+/* Faz o overlay aparecer suavemente */
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}

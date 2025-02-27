@@ -1,0 +1,86 @@
+<!-- Drawer -->
+<div
+  class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform transition-all duration-300 flex flex-col md:!w-80 lg:!w-[19rem]"
+  [ngClass]="{ '-translate-x-full': !isOpen, 'translate-x-0': isOpen }"
+  [ngStyle]="{ 'z-index': '50' }"
+>
+  <div class="p-5 flex justify-between items-center border-b border-b-gray-200">
+    <div class="flex items-center">
+      <img src="assets/images/mobile-pay.png" width="32" class="mr-2" alt="" />
+      <span class="text-lg font-bold">Canteen</span>
+    </div>
+    <p-button
+      icon="pi pi-times"
+      [rounded]="true"
+      [text]="true"
+      variant="text"
+      severity="secondary"
+      (onClick)="closeDrawer.emit()"
+    />
+  </div>
+
+  <!-- 🔥 Renderiza o menu dinamicamente -->
+  <nav class="p-4 flex-grow">
+    <ng-container *ngIf="menuItems.length > 0; else emptyMenu">
+      <ng-container *ngFor="let item of menuItems">
+        <!-- Se o item for um menu sem submenus -->
+        <a
+          *ngIf="!item.items"
+          [routerLink]="item.routerLink"
+          class="flex items-center py-2 px-3 rounded-lg hover:bg-gray-100"
+        >
+          <i [class]="item.icon"></i>
+          <span class="ml-2 text-sm">{{ item.label }}</span>
+        </a>
+
+        <!-- Se o item tiver submenus -->
+        <div *ngIf="item.items">
+          <div
+            class="flex items-center justify-between py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100"
+            (click)="toggleSubmenu(item.label || '')"
+          >
+            <div class="flex items-center">
+              <i [class]="item.icon"></i> <span class="ml-2 text-sm">{{ item.label }}</span>
+            </div>
+            <i
+              class="pi"
+              [ngClass]="{
+                'pi-chevron-down': !isSubmenuOpen(item.label || ''),
+                'pi-chevron-up': isSubmenuOpen(item.label || ''),
+              }"
+            ></i>
+          </div>
+
+          <!-- 🔥 Submenus -->
+          <div *ngIf="isSubmenuOpen(item.label || '')" class="pl-6 transition-all duration-300 ease-in-out">
+            <a
+              *ngFor="let subItem of item.items"
+              [routerLink]="subItem.routerLink"
+              class="block py-2 px-3 text-sm rounded-lg hover:bg-gray-100"
+            >
+              <i [class]="subItem.icon"></i> <span class="ml-2">{{ subItem.label }}</span>
+            </a>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- 🔥 Caso o menu esteja vazio, exibe uma mensagem -->
+    <ng-template #emptyMenu>
+      <p class="text-gray-500 text-center">Nenhum item disponível</p>
+    </ng-template>
+  </nav>
+
+  <!-- Rodapé -->
+  <div class="p-4 border-t border-t-gray-200 flex items-center">
+    <img
+      class="h-10 w-10 rounded-full"
+      [src]="user?.avatar || 'https://ui-avatars.com/api/?name=' + user?.name"
+      alt="Avatar"
+    />
+    <div class="ml-3 overflow-hidden">
+      <p class="text-sm font-medium text-gray-900">{{ user?.name | titlecase }}</p>
+      <p class="truncate text-sm text-gray-500">{{ userRoles[0] | titlecase }}</p>
+    </div>
+  </div>
+</div>

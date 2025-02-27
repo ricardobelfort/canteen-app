@@ -1,26 +1,10 @@
-<div class="w-full bg-white p-5 flex justify-between shadow-xs">
-  <nav class="flex justify-center space-x-4">
-    <a
-      routerLink="/dashboard"
-      class="flex items-center gap-2 cursor-pointer font-medium rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-    >
-      <i class="pi pi-home"></i>
-      Dashboard
-    </a>
-    <a
-      *ngIf="hasRole(UserRole.ADMIN)"
-      routerLink="/dashboard/users"
-      class="flex items-center gap-2 cursor-pointer font-medium rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-      ><i class="pi pi-users"></i> Usuários
-    </a>
-    <a
-      *ngIf="hasRole(UserRole.ADMIN)"
-      routerLink="/dashboard/roles"
-      class="flex items-center gap-2 cursor-pointer font-medium rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-    >
-      <i class="pi pi-cog"></i>
-      Configurações
-    </a>
+<div class="w-full bg-white pr-5 flex justify-between shadow-xs">
+  <nav class="p-5 flex justify-center items-center space-x-4">
+    <div class="flex items-center">
+      <img src="assets/images/mobile-pay.png" width="40" class="mr-2" alt="" />
+      <span class="text-2xl font-bold">Canteen</span>
+    </div>
+    <p-button (click)="toggleDrawer()" icon="pi pi-bars" aria-label="Menu" variant="text" severity="secondary" />
   </nav>
   <div class="flex items-center cursor-pointer" (click)="menu.toggle($event)">
     <img
@@ -29,17 +13,14 @@
       alt=""
     />
     <div class="ml-3 overflow-hidden">
-      <p class="text-sm font-medium text-gray-900">{{ user?.name }}</p>
+      <p class="text-md font-medium text-gray-900">Olá, {{ user?.name.split(' ')[0] | titlecase }}</p>
       <p class="truncate text-sm text-gray-500 dark:text-gray-400">{{ user?.email }}</p>
     </div>
   </div>
 </div>
 
 <div class="card">
-  <p-menu #menu [model]="items" [popup]="true" class="flex justify-center" styleClass="w-full md:w-60 mt-4">
-    <ng-template #submenuheader let-item>
-      <span class="text-primary font-bold">{{ item.label }}</span>
-    </ng-template>
+  <p-menu #menu [model]="profileItems" [popup]="true" class="flex justify-center" styleClass="w-full md:w-60 mt-4">
     <ng-template #item let-item>
       <a [routerLink]="item.route" class="p-menu-item-link" pRipple class="flex items-center p-menu-item-link">
         <span [class]="item.icon"></span>
@@ -55,6 +36,11 @@
   </p-menu>
 </div>
 
+<app-drawer
+  [isOpen]="isDrawerOpen()"
+  [menuItems]="menuItems"
+  (closeDrawer)="closeDrawer()"
+></app-drawer>
 <main class="w-full h-full: flex justify-center items-center">
   <router-outlet />
 </main>
