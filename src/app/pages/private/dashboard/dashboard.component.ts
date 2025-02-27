@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { UserRole } from '@core/auth/enums/roles.enum';
 import { AuthService } from '@pages/public/auth/auth.service';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -18,6 +19,8 @@ export class DashboardComponent {
 
   items: MenuItem[] | undefined;
   user?: any;
+  userRoles: string[] = [];
+  UserRole = UserRole;
 
   constructor() {
     this.getUser();
@@ -31,6 +34,8 @@ export class DashboardComponent {
           {
             label: 'Configurações',
             icon: 'pi pi-cog',
+            route: '/dashboard/roles',
+            visible: this.hasRole(UserRole.ADMIN),
           },
           {
             label: 'Mensagens',
@@ -54,6 +59,13 @@ export class DashboardComponent {
 
   getUser() {
     this.user = this.authService.decodeToken();
+    this.userRoles = this.authService.getUserRoles();
+
+    console.log('Roles do usuário:', this.userRoles);
+  }
+
+  hasRole(role: UserRole): boolean {
+    return this.userRoles.includes(role);
   }
 
   logout() {

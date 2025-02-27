@@ -1,8 +1,6 @@
-<p>home works!</p>
-
-<pre class="text-sm font-light" *ngIf="user$ | async as user">
-    {{ user | json }}
-  </pre
->
-
-<p-button label="Logout" (onClick)="logout()" icon="pi pi-sign-out" size="small" />
+<div class="flex flex-col text-center">
+  <h1 class="text-3xl font-bold">Seja bem-vindo!</h1>
+  <p class="text-md font-light" *ngIf="user$ | async as user">
+    {{ user?.name }}
+  </p>
+</div>

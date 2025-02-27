@@ -36,18 +36,37 @@ export class LoginComponent {
 
   onSubmit() {
     const { email, password } = this.loginForm.value;
+
     if (email && password) {
       this.authService.login({ email, password }).subscribe({
         next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso',
-            detail: 'Usuário logado com sucesso',
-          });
-          this.router.navigate(['/dashboard']);
+          const userRoles = this.authService.getUserRoles();
+
+          if (userRoles.length > 0) {
+            // ✅ Usuário tem role válida -> Acesso permitido
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Login realizado com sucesso',
+            });
+            this.router.navigate(['/dashboard']);
+          } else {
+            // 🚨 Usuário NÃO tem role válida -> Faz logout e exibe erro
+            this.authService.logout();
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Acesso negado',
+              detail: 'Você não tem permissão para acessar o sistema.',
+            });
+            this.router.navigate(['/auth/login']); // 🔄 Retorna à tela de login
+          }
         },
-        error: (error) => {
-          console.error(error);
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro no login',
+            detail: err.message || 'Erro inesperado ao fazer login.',
+          });
         },
       });
     } else {

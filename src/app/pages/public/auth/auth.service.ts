@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserRole } from '@core/auth/enums/roles.enum';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly apiUrl = environment.apiUrl;
@@ -25,16 +26,27 @@ export class AuthService {
     this.user$ = this.userSubject.asObservable();
   }
 
-  login(user: { email: string, password: string }): Observable<unknown> {
-    return this.http.post(`${this.apiUrl}/authentication/login`, user).pipe(
-      tap((res: any) => this.doLogin(user.email, res.token))
-    );
+  private readonly VALID_ROLES = Object.values(UserRole);
+
+  login(user: { email: string; password: string }): Observable<unknown> {
+    return this.http
+      .post(`${this.apiUrl}/authentication/login`, user)
+      .pipe(tap((res: any) => this.doLogin(user.email, res.token)));
   }
 
   private doLogin(email: string, token: any) {
     this.loggedUser = email;
     this.storeJwtToken(token);
     this.isAuthenticated.next(true);
+
+    // ✅ Obtém as roles do usuário
+    const userRoles = this.getUserRoles();
+
+    // 🚨 Se o usuário não tiver roles, faz logout automaticamente e não exibe sucesso
+    if (!userRoles.length) {
+      this.logout(); // Remove o token e bloqueia o acesso
+      throw new Error('Usuário sem permissões para acessar o sistema.');
+    }
   }
 
   private storeJwtToken(jwt: string) {
@@ -64,6 +76,21 @@ export class AuthService {
   getUserData(): any {
     const decoded = this.decodeToken();
     return decoded ? { id: decoded.sub, email: decoded.email } : null;
+  }
+
+  // ✅ Obtém as roles do usuário autenticado
+  getUserRoles(): string[] {
+    const decoded = this.decodeToken();
+    const userRoles = decoded?.roles || [];
+
+    // ✅ Converte todas as roles para minúsculas para padronização
+    return userRoles.map((role: UserRole) => role.toLowerCase());
+  }
+
+  // ✅ Verifica se o usuário tem a role necessária
+  hasRole(requiredRoles: string[]): boolean {
+    const userRoles = this.getUserRoles();
+    return requiredRoles.some((role) => userRoles.includes(role));
   }
 
   // ✅ Verifica se o usuário está logado
