@@ -1,6 +1,78 @@
-<div class="flex flex-col text-center">
-  <h1 class="text-3xl font-bold">Seja bem-vindo!</h1>
-  <p class="text-md font-light" *ngIf="user$ | async as user">
-    {{ user?.name }}
-  </p>
+<div class="w-6xl h-full">
+  <!-- Cabeçalho com título e ícone de visibilidade do saldo -->
+  <div class="flex justify-between items-center">
+    <h1 class="text-3xl font-bold">Meu Saldo</h1>
+    <button
+      (click)="mostrarSaldo = !mostrarSaldo"
+      class="cursor-pointer hover:bg-white text-gray-600 hover:text-black rounded-[50%] w-11 h-11 flex justify-center items-center"
+    >
+      <i [class]="'pi ' + (mostrarSaldo ? 'pi-eye' : 'pi-eye-slash')"></i>
+    </button>
+  </div>
+
+  <div class="bg-white rounded-2xl flex justify-between items-center p-6 mt-4">
+    <div class="flex flex-col gap-15">
+      <div class="flex flex-col gap-2">
+        <p class="text-sm font-normal uppercase">Saldo Disponível</p>
+        <p class="text-4xl font-bold">R$ {{ mostrarSaldo ? '735,00' : '••••••' }}</p>
+        <p class="text-xs">
+          Consulta efetuada em <b>{{ dataConsulta }}</b> <br />
+          Saldo e extrato para simples conferência, sujeito à alterações.
+        </p>
+      </div>
+      <p-button
+        (onClick)="consultarSaldo()"
+        icon="pi pi-refresh"
+        label="Atualizar Saldo"
+        variant="text"
+        iconPos="right"
+        size="small"
+        [loading]="loading"
+      />
+    </div>
+
+    <!-- Verifica se o usuário possui cartão -->
+    <ng-container *ngIf="usuario.temCartao; else solicitarCartao">
+      <div class="relative w-96 h-56 bg-green-400 text-white rounded-xl shadow-lg p-5 flex flex-col justify-between">
+        <!-- Cabeçalho do cartão com botão de visibilidade -->
+        <div class="flex justify-between items-center">
+          <span class="text-lg font-semibold">Canteen Card</span>
+          <button
+            (click)="mostrarCartao = !mostrarCartao"
+            class="cursor-pointer hover:text-green-300"
+          >
+            <i [class]="'pi ' + (mostrarCartao ? 'pi-eye' : 'pi-eye-slash')"></i>
+          </button>
+        </div>
+
+        <!-- Número do Cartão -->
+        <div class="text-xl tracking-widest font-mono text-center">
+          {{ mostrarCartao ? usuario.numeroCartao : '•••• •••• •••• ••••' }}
+        </div>
+
+        <!-- Informações do Titular -->
+        <div class="flex justify-between items-center text-sm">
+          <div>
+            <p class="text-white uppercase">Titular do Cartão</p>
+            <p class="font-semibold text-lg">{{ usuario.nome }}</p>
+          </div>
+          <div>
+            <p class="text-white uppercase">Validade</p>
+            <p class="font-semibold text-lg">{{ mostrarCartao ? usuario.validadeCartao : '**/**' }}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Espaço para solicitar o cartão -->
+    <ng-template #solicitarCartao>
+      <div
+        class="relative w-96 h-56 border-2 border-dashed border-gray-200 text-gray-700 rounded-xl shadow-lg p-5 flex flex-col justify-center items-center text-center"
+      >
+        <p class="text-lg font-semibold">Você ainda não possui um cartão.</p>
+        <p class="text-sm mt-2">Solicite agora e aproveite todos os benefícios.</p>
+        <p-button (onClick)="navigateTo('/dashboard/solicitar-cartao')" label="Solicitar Cartão" class="mt-4" />
+      </div>
+    </ng-template>
+  </div>
 </div>

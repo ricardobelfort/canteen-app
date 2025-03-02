@@ -6,7 +6,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { errorInterceptor } from '@core/error/error.interceptor';
 import { loadingInterceptor } from '@core/loading/loading.interceptor';
 import { authInterceptor } from '@pages/public/auth/auth.interceptor';
-import { MessageService } from 'primeng/api';
+import { FilterMatchMode, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { ToastModule } from 'primeng/toast';
 import { environment } from 'src/environments/environment';
@@ -48,6 +48,30 @@ export const appConfig: ApplicationConfig = {
             order: 'tailwind, primeng',
           },
         },
+      },
+      filterMatchModeOptions: {
+        text: [
+          FilterMatchMode.STARTS_WITH,
+          FilterMatchMode.CONTAINS,
+          FilterMatchMode.NOT_CONTAINS,
+          FilterMatchMode.ENDS_WITH,
+          FilterMatchMode.EQUALS,
+          FilterMatchMode.NOT_EQUALS,
+        ],
+        numeric: [
+          FilterMatchMode.EQUALS,
+          FilterMatchMode.NOT_EQUALS,
+          FilterMatchMode.LESS_THAN,
+          FilterMatchMode.LESS_THAN_OR_EQUAL_TO,
+          FilterMatchMode.GREATER_THAN,
+          FilterMatchMode.GREATER_THAN_OR_EQUAL_TO,
+        ],
+        date: [
+          FilterMatchMode.DATE_IS,
+          FilterMatchMode.DATE_IS_NOT,
+          FilterMatchMode.DATE_BEFORE,
+          FilterMatchMode.DATE_AFTER,
+        ],
       },
     }),
   ],

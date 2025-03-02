@@ -6,13 +6,23 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
+import { IftaLabelModule } from 'primeng/iftalabel';
 import { TagModule } from 'primeng/tag';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ReactiveFormsModule, DividerModule, TagModule, RouterLink, DialogModule],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    DividerModule,
+    TagModule,
+    RouterLink,
+    DialogModule,
+    IftaLabelModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

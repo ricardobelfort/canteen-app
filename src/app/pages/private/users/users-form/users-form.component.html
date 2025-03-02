@@ -1,0 +1,165 @@
+<div class="w-3xl h-full">
+  <div class="bg-white p-8 rounded-lg">
+    <div class="flex flex-col gap-2 mb-8">
+      <h1 class="text-2xl font-bold">Novo Usuário</h1>
+      <p class="text-lg">Cadastro de novos usuários no sistema.</p>
+    </div>
+
+    <form [formGroup]="userForm">
+      <p-divider align="left" type="solid">
+        <b class="text-lg">Dados Básicos</b>
+      </p-divider>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-8">
+        <div>
+          <p-iftalabel>
+            <input pInputText id="name" formControlName="name" class="w-full" />
+            <label for="name">Nome *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+            O nome é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="email" formControlName="email" class="w-full" />
+            <label for="email">E-mail *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+            O e-mail é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <p-inputmask
+              id="cpf"
+              formControlName="cpf"
+              [style]="{ width: '100%' }"
+              mask="999.999.999-99"
+              autocomplete="off"
+            />
+            <label for="cpf">CPF *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('cpf')?.invalid && userForm.get('cpf')?.touched">
+            O cpf é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="momsName" formControlName="momsName" class="w-full" />
+            <label for="momsName">Nome da Mãe *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('momsName')?.invalid && userForm.get('momsName')?.touched">
+            A senha é obrigatória
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <p-inputmask
+              id="phone"
+              formControlName="phone"
+              [style]="{ width: '100%' }"
+              mask="(99) 99999-9999"
+              autocomplete="off"
+            />
+            <label for="phone">Celular *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('phone')?.invalid && userForm.get('phone')?.touched">
+            A senha é obrigatória
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <p-select
+              [options]="genres"
+              formControlName="genre"
+              optionLabel="label"
+              placeholder="Selecione o sexo"
+              [style]="{ width: '100%', height: '48.7px' }"
+            />
+            <label for="genre">Gênero *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('genre')?.invalid && userForm.get('genre')?.touched">
+            O gênero é obrigatório
+          </p>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <p-checkbox formControlName="status" [binary]="true" inputId="status" name="status" value="Ativo" />
+            <label for="status">Usuário ativo</label>
+          </div>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('status')?.invalid && userForm.get('status')?.touched">
+            O status é obrigatório
+          </p>
+        </div>
+      </div>
+
+      <p-divider align="left" type="solid">
+        <b class="text-lg">Endereço</b>
+      </p-divider>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-8" formGroupName="address">
+        <div>
+          <p-iftalabel>
+            <input pInputText id="zipCode" formControlName="zipCode" class="w-full" (blur)="buscarCep()" />
+            <label for="zipCode">CEP *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('zipCode')?.invalid && userForm.get('zipCode')?.touched">
+            O nome é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="state" formControlName="state" class="w-full" />
+            <label for="state">Estado *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('state')?.invalid && userForm.get('state')?.touched">
+            O e-mail é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="city" formControlName="city" class="w-full" />
+            <label for="city">Cidade *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('city')?.invalid && userForm.get('city')?.touched">
+            O e-mail é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="street" formControlName="street" class="w-full" />
+            <label for="street">Endereço *</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('street')?.invalid && userForm.get('street')?.touched">
+            O e-mail é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="number" formControlName="number" class="w-full" />
+            <label for="number">Número</label>
+          </p-iftalabel>
+          <p class="mt-1 text-xs text-red-600" *ngIf="userForm.get('number')?.invalid && userForm.get('number')?.touched">
+            O e-mail é obrigatório
+          </p>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="complement" formControlName="complement" class="w-full" />
+            <label for="complement">Complemento</label>
+          </p-iftalabel>
+        </div>
+        <div>
+          <p-iftalabel>
+            <input pInputText id="neighborhood" formControlName="neighborhood" class="w-full" />
+            <label for="neighborhood">Bairro</label>
+          </p-iftalabel>
+        </div>
+      </div>
+
+      <div class="w-full flex gap-4 mt-8">
+        <p-button label="Salvar" (onClick)="submit()" icon="pi pi-check" size="large" />
+      </div>
+    </form>
+  </div>
+</div>

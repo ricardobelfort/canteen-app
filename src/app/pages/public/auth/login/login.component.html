@@ -1,10 +1,11 @@
 <div class="w-full h-full flex justify-center items-center">
   <div class="w-[400px] p-8 flex flex-col items-center bg-white rounded-md shadow-md relative">
-    <img src="assets/images/mobile-pay.png" width="64" class="mb-4" alt="" />
-    <h1 class="text-3xl font-bold mb-2">Canteen</h1>
+    <div class="flex items-center mb-4">
+      <img src="assets/images/mobile-pay.png" width="64" class="mr-4" alt="" />
+      <h1 class="text-3xl font-bold mb-2">Canteen</h1>
+    </div>
     <p class="text-sm font-normal text-gray-700 text-center mb-8">
-      🚀 Não tem uma conta?
-      <a routerLink="/auth/signup" class="font-bold text-green-500 hover:text-green-600">Criar Conta</a>
+      Insira seus dados para acessar sua conta
     </p>
     <form [formGroup]="loginForm" class="w-full min-w-full flex flex-col gap-4">
       <div>
@@ -93,13 +94,17 @@
         <p-divider align="center">
           <b class="font-normal text-xs text-gray-400">Ou</b>
         </p-divider>
-        <p class="block text-xs text-center text-gray-700">
+        <p class="text-sm font-normal text-gray-700 text-center">
+          🚀 Não tem uma conta?
+          <a routerLink="/auth/signup" class="font-bold text-green-500 hover:text-green-600">Criar Conta</a>
+        </p>
+        <!-- <p class="block text-xs text-center text-gray-700">
           Ao enviar o formulário acima, concordo com os
           <a routerLink="/terms" class="text-green-600 hover:text-green-500">Termos de Uso</a>
           e a
           <a routerLink="/privacy-policy" class="text-green-600 hover:text-green-500">Política de Privacidade</a>
           da Canteen Company
-        </p>
+        </p> -->
       </div>
     </form>
   </div>

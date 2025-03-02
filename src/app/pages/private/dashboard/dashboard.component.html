@@ -1,26 +1,26 @@
-<div class="w-full bg-white pr-5 flex justify-between shadow-xs">
+<div class="fixed top-0 left-0 w-full z-50 pr-5 bg-white flex justify-between items-center shadow-xs">
   <nav class="p-5 flex justify-center items-center space-x-4">
-    <div class="flex items-center">
+    <div class="flex items-center mr-20">
       <img src="assets/images/mobile-pay.png" width="40" class="mr-2" alt="" />
-      <span class="text-2xl font-bold">Canteen</span>
+      <span class="text-lg font-bold">Canteen</span>
     </div>
     <p-button (click)="toggleDrawer()" icon="pi pi-bars" aria-label="Menu" variant="text" severity="secondary" />
   </nav>
-  <div class="flex items-center cursor-pointer" (click)="menu.toggle($event)">
+  <div class="flex items-center cursor-pointer py-2 px-3 hover:bg-gray-100 rounded-lg" (click)="menu.toggle($event)">
     <img
       class="h-10 w-10 rounded-full"
-      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-      alt=""
+      [src]="user?.avatar || 'https://ui-avatars.com/api/?name=' + user?.name"
+      alt="Avatar"
     />
     <div class="ml-3 overflow-hidden">
-      <p class="text-md font-medium text-gray-900">Olá, {{ user?.name.split(' ')[0] | titlecase }}</p>
+      <p class="text-md font-bold text-gray-900">{{ user?.name.split(' ')[0] | titlecase }}</p>
       <p class="truncate text-sm text-gray-500 dark:text-gray-400">{{ user?.email }}</p>
     </div>
   </div>
 </div>
 
 <div class="card">
-  <p-menu #menu [model]="profileItems" [popup]="true" class="flex justify-center" styleClass="w-full md:w-60 mt-4">
+  <p-menu #menu [model]="profileItems" [popup]="true" class="flex justify-center" styleClass="w-full md:w-60">
     <ng-template #item let-item>
       <a [routerLink]="item.route" class="p-menu-item-link" pRipple class="flex items-center p-menu-item-link">
         <span [class]="item.icon"></span>
@@ -41,6 +41,6 @@
   [menuItems]="menuItems"
   (closeDrawer)="closeDrawer()"
 ></app-drawer>
-<main class="w-full h-full: flex justify-center items-center">
+<main class="w-full h-[calc(100%*100px)] mt-[80px] py-8 overflow-y-scroll flex justify-center">
   <router-outlet />
 </main>

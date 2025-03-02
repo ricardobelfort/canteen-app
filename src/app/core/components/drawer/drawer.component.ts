@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserRole } from '@core/auth/enums/roles.enum';
-import { AppMenuItem } from '@core/interfaces/app-menu-item.ts';
+import { AppMenuItem } from '@core/interfaces/app-menu-item';
 import { AuthService } from '@pages/public/auth/auth.service';
 import { ButtonModule } from 'primeng/button';
 

@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserRole } from '@core/auth/enums/roles.enum';
 import { DrawerComponent } from '@core/components/drawer/drawer.component';
-import { AppMenuItem } from '@core/interfaces/app-menu-item.ts';
+import { AppMenuItem } from '@core/interfaces/app-menu-item';
 import { AuthService } from '@pages/public/auth/auth.service';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
@@ -36,13 +36,13 @@ export class DashboardComponent {
           {
             label: 'Meus Dados',
             icon: 'pi pi-user-edit',
-            routerLink: '/dashboard/profile',
+            routerLink: '/dashboard/perfil',
             visible: this.hasRole(UserRole.ADMIN),
           },
           {
             label: 'Configurações',
             icon: 'pi pi-cog',
-            routerLink: '/dashboard/roles',
+            routerLink: '/dashboard/regras',
             visible: this.hasRole(UserRole.ADMIN),
           },
           {
@@ -79,7 +79,7 @@ export class DashboardComponent {
       {
         label: 'Saldo e Extrato',
         icon: 'pi pi-list-check',
-        routerLink: '/bookmarks',
+        routerLink: '/dashboard/saldo',
         roles: [UserRole.ADMIN, UserRole.EMPLOYEE],
       },
       {
@@ -90,12 +90,12 @@ export class DashboardComponent {
           {
             label: 'Lista de Usuários',
             icon: 'pi pi-list',
-            routerLink: '/dashboard/users/list',
+            routerLink: '/dashboard/usuarios',
           },
           {
             label: 'Criar Usuário',
             icon: 'pi pi-user-plus',
-            routerLink: '/dashboard/users/create',
+            routerLink: '/dashboard/usuarios/novo',
           },
         ],
       },
@@ -124,19 +124,19 @@ export class DashboardComponent {
           {
             label: 'Ajustes do Sistema',
             icon: 'pi pi-sliders-h',
-            routerLink: '/dashboard/settings',
+            routerLink: '/dashboard/configuracoes',
           },
           {
             label: 'Permissões',
             icon: 'pi pi-lock',
-            routerLink: '/dashboard/permissions',
+            routerLink: '/dashboard/permissoes',
           },
         ],
       },
       {
         label: 'Meu Perfil',
         icon: 'pi pi-user',
-        routerLink: '/dashboard/profile',
+        routerLink: '/dashboard/perfil',
         roles: [UserRole.EMPLOYEE],
       },
     ];
