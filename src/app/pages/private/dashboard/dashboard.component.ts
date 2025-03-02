@@ -36,13 +36,13 @@ export class DashboardComponent {
           {
             label: 'Meus Dados',
             icon: 'pi pi-user-edit',
-            routerLink: '/dashboard/perfil',
-            visible: this.hasRole(UserRole.ADMIN),
+            route: '/dashboard/perfil',
+            visible: this.hasRole(UserRole.ADMIN) || this.hasRole(UserRole.EMPLOYEE),
           },
           {
             label: 'Configurações',
             icon: 'pi pi-cog',
-            routerLink: '/dashboard/regras',
+            route: '/dashboard/regras',
             visible: this.hasRole(UserRole.ADMIN),
           },
           {
@@ -141,10 +141,7 @@ export class DashboardComponent {
       },
     ];
 
-    // 🔥 Filtra os menus com base na role do usuário
-    this.menuItems = this.menuItems.filter(
-      (item) => item.roles?.some((role) => this.hasRole(role)) || !item.roles // Se não houver roles, mantém o item
-    );
+    this.menuItems = this.menuItems.filter((item) => item.roles?.some((role) => this.hasRole(role)) || !item.roles);
   }
 
   toggleDrawer() {
@@ -159,15 +156,12 @@ export class DashboardComponent {
     this.user = this.authService.decodeToken();
     this.userRoles = this.authService.getUserRoles();
 
-    console.log('Roles do usuário:', this.userRoles);
-
     if (this.userRoles.length > 0) {
       this.buildMenu();
     }
   }
 
   hasRole(role: UserRole): boolean {
-    console.log('Verificando role:', role, 'Lista de roles do usuário:', this.userRoles);
     return this.userRoles.includes(role);
   }
 

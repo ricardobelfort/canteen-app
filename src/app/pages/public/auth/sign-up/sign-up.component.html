@@ -1,1 +1,111 @@
-<p>sign-up works!</p>
+<div class="w-full h-full flex justify-center items-center">
+  <div class="w-[400px] p-8 flex flex-col items-center bg-white rounded-md shadow-md relative">
+    <div class="flex items-center mb-4">
+      <img src="assets/images/mobile-pay.png" width="64" class="mr-4" alt="" />
+      <h1 class="text-3xl font-bold mb-2">Canteen</h1>
+    </div>
+    <p class="text-2xl font-semibold text-gray-700 text-center mb-5 mt-3">Crie sua conta</p>
+    <form [formGroup]="signupForm" class="w-full min-w-full flex flex-col gap-4">
+      <div>
+        <p-iftalabel>
+          <input pInputText id="firstName" formControlName="firstName" [style]="{ width: '100%' }" />
+          <label for="firstName">Nome</label>
+        </p-iftalabel>
+
+        <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="text-xs text-red-500 mt-1">
+          <div *ngIf="firstName?.hasError('required')">O e-mail é obrigatório.</div>
+          <div *ngIf="firstName?.hasError('firstName')">Formato de e-mail inválido.</div>
+          <div *ngIf="firstName?.hasError('minlength')">O e-mail deve ter pelo menos 5 caracteres.</div>
+        </div>
+      </div>
+
+      <div>
+        <p-iftalabel>
+          <input pInputText id="firstName" formControlName="firstName" [style]="{ width: '100%' }" />
+          <label for="firstName">Sobrenome</label>
+        </p-iftalabel>
+
+        <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="text-xs text-red-500 mt-1">
+          <div *ngIf="firstName?.hasError('required')">O e-mail é obrigatório.</div>
+          <div *ngIf="firstName?.hasError('firstName')">Formato de e-mail inválido.</div>
+          <div *ngIf="firstName?.hasError('minlength')">O e-mail deve ter pelo menos 5 caracteres.</div>
+        </div>
+      </div>
+
+      <div>
+        <p-iftalabel>
+          <p-select
+            [options]="genres"
+            formControlName="genre"
+            optionLabel="label"
+            placeholder="Selecione o sexo"
+            [style]="{ width: '100%', height: '48.7px' }"
+          />
+          <label for="genre">Gênero *</label>
+        </p-iftalabel>
+      </div>
+
+      <div class="w-full grid grid-cols-[80px_minmax(80px,_1fr)] gap-4">
+        <div>
+          <p-iftalabel>
+            <p-select
+              [options]="states"
+              formControlName="state"
+              optionLabel="sigla"
+              optionValue="sigla"
+              (onChange)="getCities()"
+              [style]="{ width: '100%', height: '48.7px' }"
+            />
+            <label for="genre">UF *</label>
+          </p-iftalabel>
+        </div>
+        <div>
+          <p-iftalabel>
+            <p-select
+              [options]="cities"
+              formControlName="city"
+              optionLabel="nome"
+              optionValue="nome"
+              placeholder="Selecione uma cidade"
+              [style]="{ width: '100%', height: '48.7px' }"
+            />
+            <label for="city">Cidade</label>
+          </p-iftalabel>
+          
+        </div>
+      </div>
+      <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="text-xs text-red-500 mt-1">
+        <div *ngIf="firstName?.hasError('required')">O e-mail é obrigatório.</div>
+        <div *ngIf="firstName?.hasError('firstName')">Formato de e-mail inválido.</div>
+        <div *ngIf="firstName?.hasError('minlength')">O e-mail deve ter pelo menos 5 caracteres.</div>
+      </div>
+
+      <div class="w-full flex flex-col">
+        <p-button
+          (onClick)="onSubmit()"
+          label="CRIAR"
+          [disabled]="signupForm.invalid"
+          size="large"
+          [style]="{ width: '100%' }"
+        />
+
+        <p-divider align="center">
+          <b class="font-normal text-xs text-gray-400">Ou</b>
+        </p-divider>
+        <p class="text-md font-normal text-gray-700 text-center">
+          🚀 Já tem uma conta?
+          <a routerLink="/auth/login" class="font-medium text-green-500 hover:text-green-600 cursor-pointer"
+            >FAÇA LOGIN AGORA</a
+          >
+        </p>
+        <!-- <p class="block text-xs text-center text-gray-700">
+          Ao enviar o formulário acima, concordo com os
+          <a routerLink="/terms" class="text-green-600 hover:text-green-500">Termos de Uso</a>
+          e a
+          <a routerLink="/privacy-policy" class="text-green-600 hover:text-green-500">Política de Privacidade</a>
+          da Canteen Company
+        </p> -->
+      </div>
+    </form>
+  </div>
+</div>

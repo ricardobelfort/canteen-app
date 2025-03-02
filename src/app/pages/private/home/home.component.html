@@ -33,7 +33,7 @@
 
     <!-- Verifica se o usuário possui cartão -->
     <ng-container *ngIf="usuario.temCartao; else solicitarCartao">
-      <div class="relative w-96 h-56 bg-green-400 text-white rounded-xl shadow-lg p-5 flex flex-col justify-between">
+      <div class="relative w-96 h-56 bg-green-400 text-white rounded-xl p-5 flex flex-col justify-between">
         <!-- Cabeçalho do cartão com botão de visibilidade -->
         <div class="flex justify-between items-center">
           <span class="text-lg font-semibold">Canteen Card</span>
@@ -67,11 +67,11 @@
     <!-- Espaço para solicitar o cartão -->
     <ng-template #solicitarCartao>
       <div
-        class="relative w-96 h-56 border-2 border-dashed border-gray-200 text-gray-700 rounded-xl shadow-lg p-5 flex flex-col justify-center items-center text-center"
+        class="relative w-96 h-56 border-2 border-dashed border-gray-200 text-gray-700 rounded-2xl p-5 flex flex-col justify-center items-center text-center"
       >
         <p class="text-lg font-semibold">Você ainda não possui um cartão.</p>
         <p class="text-sm mt-2">Solicite agora e aproveite todos os benefícios.</p>
-        <p-button (onClick)="navigateTo('/dashboard/solicitar-cartao')" label="Solicitar Cartão" class="mt-4" />
+        <p-button (onClick)="navigateTo('/dashboard/solicitar-cartao')" icon="pi pi-credit-card" label="Solicitar Cartão" class="mt-8" size="large" />
       </div>
     </ng-template>
   </div>

@@ -6,5 +6,5 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 export const AUTH_ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'recovery-password', component: ForgotPasswordComponent },
+  { path: 'recovery', component: ForgotPasswordComponent },
 ];

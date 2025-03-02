@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserRole } from '@core/auth/enums/roles.enum';
 import { AppMenuItem } from '@core/interfaces/app-menu-item';
@@ -13,7 +13,7 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './drawer.component.html',
   styleUrl: './drawer.component.css',
 })
-export class DrawerComponent implements OnChanges {
+export class DrawerComponent {
   @Input() isOpen = false;
   @Input() menuItems: AppMenuItem[] = [];
   @Output() closeDrawer = new EventEmitter<void>();
@@ -24,14 +24,10 @@ export class DrawerComponent implements OnChanges {
   user?: any;
   userRoles: string[] = [];
   UserRole = UserRole;
-  openSubmenus: Record<string, boolean> = {}; // 🔥 Controle de submenus abertos
+  openSubmenus: Record<string, boolean> = {};
 
   constructor() {
     this.getUser();
-  }
-
-  ngOnChanges() {
-    console.log('MenuItems recebidos no Drawer:', this.menuItems);
   }
 
   toggleSubmenu(menuLabel: string) {

@@ -8,10 +8,6 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/public/auth/auth.routes').then((r) => r.AUTH_ROUTES),
   },
   {
-    path: '',
-    loadChildren: () => import('./pages/public/public.routes').then((r) => r.PUBLIC_ROUTES),
-  },
-  {
     path: 'dashboard',
     loadChildren: () => import('./pages/private/private.routes').then((r) => r.PRIVATE_ROUTES),
   },

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Cep } from '@core/interfaces/cep';
+import { Genre } from '@core/interfaces/genre';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -11,11 +12,6 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
-
-interface Genre {
-  label: string;
-  value: string;
-}
 
 @Component({
   selector: 'app-users-form',

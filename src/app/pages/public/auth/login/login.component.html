@@ -4,9 +4,7 @@
       <img src="assets/images/mobile-pay.png" width="64" class="mr-4" alt="" />
       <h1 class="text-3xl font-bold mb-2">Canteen</h1>
     </div>
-    <p class="text-sm font-normal text-gray-700 text-center mb-8">
-      Insira seus dados para acessar sua conta
-    </p>
+    <p class="text-sm font-normal text-gray-700 text-center mb-8">Insira seus dados para acessar sua conta</p>
     <form [formGroup]="loginForm" class="w-full min-w-full flex flex-col gap-4">
       <div>
         <label for="email" class="block text-sm text-gray-700">
@@ -78,10 +76,11 @@
           <div *ngIf="password?.hasError('required')">A senha é obrigatória.</div>
           <div *ngIf="email?.hasError('minlength')">A senha deve ter pelo menos 8 caracteres.</div>
         </div>
-        <a routerLinkActive="/privacy-policy" class="text-sm text-green-600 hover:text-green-500 cursor-pointer"
-          >Esqueceu sua senha</a
-        >
       </div>
+
+      <a routerLink="/auth/recovery" class="text-sm text-green-600 hover:text-green-500 cursor-pointer"
+        >Esqueceu sua senha</a
+      >
 
       <div class="w-full flex flex-col">
         <p-button

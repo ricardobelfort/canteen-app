@@ -21,7 +21,7 @@ export class HomeComponent {
   loading: boolean = false;
 
   usuario = {
-    temCartao: true,
+    temCartao: false,
     numeroCartao: '1234 5678 9012 3456',
     nome: 'Ricardo Belfort',
     validadeCartao: '12/24',
@@ -48,7 +48,7 @@ export class HomeComponent {
     setTimeout(() => {
       this.atualizarDataConsulta();
       this.loading = false; // Desativa o carregamento após a simulação
-    }, 2000); // Simula um tempo de carregamento
+    }, 1000); // Simula um tempo de carregamento
   }
 
   user$ = this.authService.user$.pipe(

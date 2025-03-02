@@ -53,7 +53,6 @@ export class LoginComponent {
           const userRoles = this.authService.getUserRoles();
 
           if (userRoles.length > 0) {
-            // ✅ Usuário tem role válida -> Acesso permitido
             this.messageService.add({
               severity: 'success',
               summary: 'Sucesso',
@@ -61,14 +60,13 @@ export class LoginComponent {
             });
             this.router.navigate(['/dashboard']);
           } else {
-            // 🚨 Usuário NÃO tem role válida -> Faz logout e exibe erro
             this.authService.logout();
             this.messageService.add({
               severity: 'error',
               summary: 'Acesso negado',
               detail: 'Você não tem permissão para acessar o sistema.',
             });
-            this.router.navigate(['/auth/login']); // 🔄 Retorna à tela de login
+            this.router.navigate(['/auth/login']);
           }
         },
         error: (err) => {
